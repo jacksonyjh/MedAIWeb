@@ -1,3 +1,3 @@
 # Setting Up Backend
 
-1. rename .env.example to .env
+Application is currently working on my local machine. Let me know if you want to set it up as well.
