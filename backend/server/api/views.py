@@ -3,9 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import PatientDemographics
 from .serializers import PatientDemographicsSerializer
+from .renderers import CustomXMLRenderer
 
 class PatientXMLView(ListAPIView):
     serializer_class = PatientDemographicsSerializer
+    renderer_classes = [CustomXMLRenderer]
 
     def get_queryset(self):
         query_set = PatientDemographics.objects.all()
@@ -14,9 +16,14 @@ class PatientXMLView(ListAPIView):
         if patient_id:
             query_set = query_set.filter(patient_id=patient_id)
         
-        print(query_set)
         return query_set
     
+    '''
+    GET method for patient(s)
+
+    / : returns all patients in database 
+    /?patient_id= : returns patient with patient id
+    '''
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
 
