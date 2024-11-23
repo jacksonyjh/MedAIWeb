@@ -12,9 +12,16 @@ class PatientXMLView(ListAPIView):
     def get_queryset(self):
         query_set = PatientDemographics.objects.all()
         patient_id = self.request.query_params.get('patient_id')
+        start_date = self.request.query_params.get('start_date')
+        end_date = self.request.query_params.get('end_date')
 
         if patient_id:
             query_set = query_set.filter(patient_id=patient_id)
+        
+        if start_date and end_date:
+            query_set = query_set.filter(
+                testdemographics__acquisition_date__range=[start_date, end_date]
+            ).distinct()
         
         return query_set
     
@@ -32,6 +39,9 @@ class PatientXMLView(ListAPIView):
                 {"error": "No patient found"},
                 status=status.HTTP_404_NOT_FOUND
             )
-
-        serializer = self.get_serializer(queryset, many=True)
+        
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        serializer_context = {"start_date": start_date, "end_date": end_date}
+        serializer = self.get_serializer(queryset, many=True, context=serializer_context)
         return Response(serializer.data)
