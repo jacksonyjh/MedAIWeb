@@ -7,7 +7,7 @@ const SearchWindow = () => {
     <div>
         <li> Patient ID <Input></Input></li>
         <li> Patient Name <Input></Input> </li>
-        <li> Gender (M/F) </li>
+        <li> Gender (Male or Female) </li>
         <li> Acquisition Date</li>
         <li> PR Interval</li>
         <li> QT Interval</li>
