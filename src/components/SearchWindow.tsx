@@ -1,20 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SearchWindow.css'
 
-import { Input } from '@chakra-ui/react'
+import { Button, Input, RadioGroup, Radio, Stack, background } from '@chakra-ui/react'
+
 const SearchWindow = () => {
+
+
+  const [gender, setGender] = useState('');
+  const [acqDate, setAcqDate] = useState('');
+
+  const handleGenderClick = (selectedGender: string) => {
+    console.log({selectedGender})
+    setGender(selectedGender);
+  }
   return (
     <div>
-        <li> Patient ID <Input></Input></li>
-        <li> Patient Name <Input></Input> </li>
-        <li> Gender (Male or Female) </li>
-        <li> Acquisition Date</li>
-        <li> PR Interval</li>
-        <li> QT Interval</li>
-        <li> Ventricle Rate</li>
+        <div> Patient ID <Input placeholder = 'Enter Patient ID ' height='25px'></Input></div>
+        <div> Patient Name <Input placeholder = 'Enter Patient Name' height='25px'></Input> </div>
+        <div> Gender
+          <Stack direction='row' justify='center'>
+            {['Male', 'Female', 'Other'].map(genderOption => (
+              <Button key ={genderOption} className='gen btn' onClick={() => handleGenderClick(genderOption)}
+              style={{backgroundColor: gender === genderOption ? 'lightblue' : 'white'}}> {genderOption}</Button>
+            ))}
+          </Stack>
+        </div>
+        <div> Acquisition Date </div>
+        <div> PR Interval</div>
+        <div> QT Interval</div>
+        <div> Ventricle Rate</div>
         <button type="button" className="btn">Search</button>
     </div>
-  )
-}
+  );
+};
 
-export default SearchWindow
+export default SearchWindow;

@@ -16,11 +16,6 @@ const Navbar = ({onLogoClick, onSearchClick}: Props) => {
         
       </div>
 
-      {/* <ul>
-        <li>Home</li>
-        <li>About</li>
-      </ul> */}
-
       <SearchButton onClick={onSearchClick}></SearchButton>
     </div>
   );
