@@ -5,13 +5,12 @@ import "./SearchWindow.css";
 import {
   Button,
   Input,
-  RadioGroup,
-  Radio,
   Stack,
-  background,
 } from "@chakra-ui/react";
 
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const SearchWindow = () => {
   const [gender, setGender] = useState("");
@@ -22,7 +21,7 @@ const SearchWindow = () => {
     setGender(selectedGender);
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setAcqDate(date);
     console.log(date);
   }
