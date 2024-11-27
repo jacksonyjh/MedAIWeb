@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SearchWindow.css";
 
+
 import {
   Button,
   Input,
@@ -10,14 +11,22 @@ import {
   background,
 } from "@chakra-ui/react";
 
+import DatePicker from "react-datepicker";
+
 const SearchWindow = () => {
   const [gender, setGender] = useState("");
-  const [acqDate, setAcqDate] = useState("");
+  const [acqDate, setAcqDate] = useState(null);
 
   const handleGenderClick = (selectedGender: string) => {
     console.log({ selectedGender });
     setGender(selectedGender);
   };
+
+  const handleDateChange = (date) => {
+    setAcqDate(date);
+    console.log(date);
+  }
+
   return (
     <div>
       <div>
@@ -43,13 +52,15 @@ const SearchWindow = () => {
                   gender === genderOption ? "lightblue" : "white",
               }}
             >
-              {" "}
               {genderOption}
             </Button>
           ))}
         </Stack>
       </div>
-      <div> Acquisition Date </div>
+
+      <div> Acquisition Date</div>
+      {/* <Button onClick={()=> setCalendarVis(true)}> Choose Date</Button> */}
+      <DatePicker selected={acqDate} onChange={handleDateChange} placeholderText="Please Select a Date"></DatePicker>
       <div> PR Interval</div>
       <div> QT Interval</div>
       <div> Ventricle Rate</div>
