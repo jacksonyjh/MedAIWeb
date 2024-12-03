@@ -1,19 +1,13 @@
-// SearchContainer.tsx
-import React, { useState } from "react";
-import SearchWindow from "./SearchWindow";
+import React from "react";
 import SearchResults from "./SearchResults";
 
-const SearchContainer = () => {
-  const [searchData, setSearchData] = useState(null);
+interface Props {
+  searchData: any[];
+}
 
-  const handleSearchData = (data: any) => {
-    setSearchData(data);
-  };
-
+const SearchContainer = ({ searchData }: Props) => {
   return (
-
     <div>
-      {console.log(searchData)}
       <SearchResults data={searchData} />
     </div>
   );

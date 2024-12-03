@@ -1,30 +1,48 @@
 import React, { useState } from "react";
 import "./SearchWindow.css";
 
-import { Button, Input, Stack, Box, NumberInput, NumberInputField, Flex } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Stack,
+  Box,
+  NumberInput,
+  NumberInputField,
+  Flex,
+} from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import { searchDatabase } from "./databaseUtil";
 
 interface Props {
   onSearchClick: (data: any) => void;
 }
 
-
 const SearchWindow = ({ onSearchClick }: Props) => {
-  const [patientId, setPatientId] = useState("");
-  const [patientName, setPatientName] = useState("");
-  const [gender, setGender] = useState("");
-  const [acqDate, setAcqDate] = useState(null);
-  const [prInterval, setPrInterval] = useState("");
-  const [qtInterval, setQtInterval] = useState("");
-  const [ventricleRate, setVentricleRate] = useState("");
+  const [patientId, setPatientId] = useState<string>("");
+  const [patientName, setPatientName] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [acqDate, setAcqDate] = useState<string | null>(null);
+  const [prInterval, setPrInterval] = useState<string>("");
+  const [qtInterval, setQtInterval] = useState<string>("");
+  const [ventricleRate, setVentricleRate] = useState<string>("");
 
   const handleGenderClick = (selectedGender: string) => {
     setGender(selectedGender);
   };
 
-  const handleDateChange = (date: any) => {
-    setAcqDate(date);
+  const handleDateChange = (date: Date | null) => {
+    const year = date?.getFullYear();
+    const month = date?.getMonth() + 1;
+    const day = date?.getDate();
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+    
+    console.log(formattedDate);
+    setAcqDate(formattedDate);
   };
 
   const handleSearchClick = () => {
@@ -37,8 +55,10 @@ const SearchWindow = ({ onSearchClick }: Props) => {
       qtInterval,
       ventricleRate,
     };
-    console.log(searchData);
-    onSearchClick(searchData); // Pass data to parent
+
+    const results = searchDatabase(searchData);
+    console.log(results);
+    onSearchClick(results);
   };
 
   return (
@@ -71,7 +91,8 @@ const SearchWindow = ({ onSearchClick }: Props) => {
                 className="gen btn"
                 onClick={() => handleGenderClick(genderOption)}
                 style={{
-                  backgroundColor: gender === genderOption ? "lightblue" : "white",
+                  backgroundColor:
+                    gender === genderOption ? "lightblue" : "white",
                 }}
               >
                 {genderOption}
@@ -121,7 +142,7 @@ const SearchWindow = ({ onSearchClick }: Props) => {
             </NumberInput>
           </Box>
         </Flex>
-        <Button className="btn" onClick={handleSearchClick}>
+        <Button className="btn" type='button' onClick={handleSearchClick}>
           Search
         </Button>
       </form>
