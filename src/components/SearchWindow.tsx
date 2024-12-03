@@ -33,6 +33,9 @@ const SearchWindow = ({ onSearchClick }: Props) => {
   };
 
   const handleDateChange = (date: Date | null) => {
+    if (!date){
+      return
+    }
     const year = date?.getFullYear();
     const month = date?.getMonth() + 1;
     const day = date?.getDate();
@@ -40,7 +43,7 @@ const SearchWindow = ({ onSearchClick }: Props) => {
     const formattedMonth = month < 10 ? `0${month}` : month;
 
     const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
-    
+
     console.log(formattedDate);
     setAcqDate(formattedDate);
   };
@@ -142,7 +145,7 @@ const SearchWindow = ({ onSearchClick }: Props) => {
             </NumberInput>
           </Box>
         </Flex>
-        <Button className="btn" type='button' onClick={handleSearchClick}>
+        <Button className="btn" type="button" onClick={handleSearchClick}>
           Search
         </Button>
       </form>
