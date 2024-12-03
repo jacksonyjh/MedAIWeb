@@ -29,8 +29,7 @@ const App = () => {
         <SearchWindow
           onSearchClick={(data) => {
             setSearchData(data); 
-            setDisplayResults(true); 
-            setSearchVisibility(false);
+            setDisplayResults(true);
           }}
         />
       )}
