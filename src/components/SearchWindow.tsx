@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import "./SearchWindow.css";
 
-import {
-  Button,
-  Input,
-  Stack,
-  Box,
-  NumberInput,
-  NumberInputField,
-  Flex,
-} from "@chakra-ui/react";
+import { Button, Input, Stack, Box, NumberInput, NumberInputField, Flex } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const SearchWindow = () => {
+interface Props {
+  onSearchClick: (data: any) => void;
+}
+
+
+const SearchWindow = ({ onSearchClick }: Props) => {
   const [patientId, setPatientId] = useState("");
   const [patientName, setPatientName] = useState("");
   const [gender, setGender] = useState("");
@@ -22,11 +19,11 @@ const SearchWindow = () => {
   const [qtInterval, setQtInterval] = useState("");
   const [ventricleRate, setVentricleRate] = useState("");
 
-  const handleGenderClick = (selectedGender) => {
+  const handleGenderClick = (selectedGender: string) => {
     setGender(selectedGender);
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: any) => {
     setAcqDate(date);
   };
 
@@ -40,7 +37,8 @@ const SearchWindow = () => {
       qtInterval,
       ventricleRate,
     };
-    console.log("Search Data:", searchData);
+    console.log(searchData);
+    onSearchClick(searchData); // Pass data to parent
   };
 
   return (
@@ -73,8 +71,7 @@ const SearchWindow = () => {
                 className="gen btn"
                 onClick={() => handleGenderClick(genderOption)}
                 style={{
-                  backgroundColor:
-                    gender === genderOption ? "lightblue" : "white",
+                  backgroundColor: gender === genderOption ? "lightblue" : "white",
                 }}
               >
                 {genderOption}
