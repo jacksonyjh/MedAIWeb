@@ -28,8 +28,9 @@ const App = () => {
       {searchVisibility && (
         <SearchWindow
           onSearchClick={(data) => {
-            setSearchData(data); // Capture data from SearchWindow
-            setDisplayResults(true); // Show results after data is captured
+            setSearchData(data); 
+            setDisplayResults(true); 
+            setSearchVisibility(false);
           }}
         />
       )}
